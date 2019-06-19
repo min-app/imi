@@ -1,0 +1,94 @@
+@import './variables.scss';
+
+// body
+.body {
+    background-color: #eeeeee;
+    padding: $marginL 0;
+    height: '100%';
+}
+
+// 贴在底部
+.bottom {
+    position: fixed;
+    bottom: 0;
+}
+
+.fix-bottom-s {
+    width: 50%;
+    position: fixed;
+    left: 25%;
+    bottom: $marginL;
+}
+
+.fix-bottom {
+    width: 60%;
+    position: fixed;
+    left: 20%;
+    bottom: $marginL;
+}
+
+.fix-bottom-l {
+    width: 80%;
+    position: fixed;
+    left: 10%;
+    bottom: $marginL;
+}
+
+// 背景色
+.bg-gray {
+    background-color: $colorLine;
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+// 距离
+@each $f in margin padding {
+    @each $d in top right bottom left {
+        @each $t in s l m {
+            .#{$f}-#{$d}-#{$t} {
+                @if ($t == 's') {
+                    #{$f}-#{$d}: $marginS;
+                } @else if ($t == 'l') {
+                    #{$f}-#{$d}: $marginL;
+                } @else {
+                    #{$f}-#{$d}: $margin;
+                }
+            }
+        }
+        .#{$f}-#{$d} {
+            #{$f}-#{$d}: 0;
+        }
+    }
+    @each $t in s l m {
+        .#{$f}-#{$t} {
+            @if ($t == 's') {
+                #{$f}: $marginS;
+            } @else if ($t == 'l') {
+                #{$f}: $marginL;
+            } @else {
+                #{$f}: $margin;
+            }
+        }
+    }
+    .#{$f} {
+        #{$f}: 0;
+    }
+}
+
+.box-fixed {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    .box-fixed-item {
+        flex: 1;
+        text-align: center;
+        height: $height * 2;
+        line-height: $height * 2;
+    }
+    .box-fixed-item.primary {
+        background-color: $colorInfo;
+    }
+}

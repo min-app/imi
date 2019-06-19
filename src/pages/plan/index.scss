@@ -1,0 +1,43 @@
+@import '@styles/main.scss';
+
+.list-box {
+    padding: $marginL;
+    padding-top: 0;
+    .list-box-item {
+        padding: $margin $marginS;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid $colorLine;
+        .list-box-item-main {
+            flex: 1;
+            .list-box-item-main-title {
+                color: $colorBlack0;
+            }
+            .list-box-item-main-desc {
+                color: $colorGray2;
+                margin-top: $marginS;
+                font-size: $fontSizeH4;
+            }
+        }
+        .list-box-item-minor {
+            right: 0;
+            color: $colorGray2;
+            font-size: $fontSizeH2 * .9;
+            min-width: $widthS * 1.3;
+            text-align: center;
+            height: $fontSizeH2;
+            line-height: $fontSizeH2;
+            padding: $margin;
+            border: 1px solid $colorLine;
+            border-radius: $marginL;
+        }
+        .list-box-item-minor.error {
+            color: $colorError;
+            border-color: $colorError;
+        }
+        .list-box-item-minor.info {
+            color: $colorInfo;
+            border-color: $colorInfo;
+        }
+    }
+}

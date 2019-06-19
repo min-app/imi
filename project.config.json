@@ -1,0 +1,13 @@
+{
+  "miniprogramRoot": "./dist",
+  "projectname": "imi",
+  "description": "imi",
+  "appid": "wx2eb5dc08f275c26c",
+  "setting": {
+    "urlCheck": false,
+    "es6": false,
+    "postcss": false,
+    "minified": true
+  },
+  "compileType": "miniprogram"
+}

@@ -1,0 +1,18 @@
+@import '@styles/main.scss';
+
+.main, .minor {
+    padding: $margin;
+    background-color: #fff;
+}
+.main {
+    .desc {
+        color: $colorGray2;
+        margin-top: $marginS;
+        font-size: $fontSizeH4;
+    }
+}
+.minor {
+    padding: $marginL;
+    // margin-top: $marginL;
+    // border-top: 1px solid $colorLine;
+}

@@ -1,0 +1,21 @@
+@import '@styles/main.scss';
+
+.top {
+    display: flex;
+    padding: $marginL * 1.5;
+    margin-bottom: $marginL;
+    font-size: $fontSizeH2;
+    background-color: #ffffff;
+    .avatar {
+        flex: 0 0 auto;
+        height: $imgSizeLP;
+        width: $imgSizeLP;
+        border-radius: 50%;
+        margin-right: $margin;
+        background-color: $colorLine;
+    }
+    .btn {
+        border: none;
+        color: $colorGray2;
+    }
+}
