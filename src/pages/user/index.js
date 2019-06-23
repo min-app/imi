@@ -3,7 +3,6 @@ import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { AtAvatar, AtButton, AtList, AtListItem } from 'taro-ui'
 import PropTypes from 'prop-types'
-import { withQuery } from 'taro-apollo'
 import gql from 'graphql-tag'
 import _ from 'lodash'
 
@@ -82,8 +81,17 @@ class UserComponent extends BaseComponent {
     })
   }
 
-  handleClick (e) {
-    console.log('e', e)
+  handleClick (e, click) {
+    const action = _.get(click, 'currentTarget.dataset.action', '')
+    
+    console.log('action', action)
+    switch (action) {
+      case 'addPlan':
+        Taro.navigateTo({
+          url: '/pages/plan/add/index'
+        })
+        break
+    }
   }
 
   render () {
@@ -109,8 +117,9 @@ class UserComponent extends BaseComponent {
         </View>
         <View>
           <AtList>
-            <AtListItem title='我关注的' arrow='right' data-cus='as' onClick={this.handleClick} />
-            <AtListItem title='我点赞的' arrow='right' data-cus='ds' onClick={this.handleClick} />
+            <AtListItem title='我关注的' arrow='right' data-action='attend' onClick={this.handleClick} />
+            <AtListItem title='我点赞的' arrow='right' data-action='liked' onClick={this.handleClick} />
+            <AtListItem title='新计划' arrow='right' data-action='addPlan' onClick={this.handleClick} />
           </AtList>
         </View>
       </Body>

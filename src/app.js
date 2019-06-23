@@ -24,6 +24,7 @@ class App extends Component {
       // 'pages/index/index',
       'pages/user/index',
       'pages/plan/index',
+      'pages/plan/add/index',
       'pages/plan/info/index',
       'pages/home/index',
     ],

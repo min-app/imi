@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const encryptUserInfo = gql`
+export const encryptUserInfoQuery = gql`
   mutation EncryptUserInfo ($jsCode: String, $sessionKey: String, $iv: String!, $encryptedData: String!) {
     encryptUserInfo(input: {
       jsCode: $jsCode
