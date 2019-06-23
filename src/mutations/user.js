@@ -12,6 +12,8 @@ export const encryptUserInfo = gql`
       wxUser {
         id
         userId
+        avatarUrl
+        nickName
       }
     }
   }

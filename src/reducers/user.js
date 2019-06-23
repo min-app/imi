@@ -10,7 +10,6 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case USERINFO:
     case ENCRYPTUSERINFO:
-      console.log('action-->', action)
       return action
       break
     default:

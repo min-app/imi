@@ -4,7 +4,6 @@ import { sendMutation, sendQuery } from "../utils/graphql"
 import { encryptUserInfo } from '@mutations/user'
 
 export const getUser = async (query, variables) => {
-  // const data = await sendQuery(query, variables)
   return async dispatch => {
     dispatch({
       type: USERINFO,
@@ -14,7 +13,6 @@ export const getUser = async (query, variables) => {
 }
 
 export const encryptUser = async (variables) => {
-  // const data = await sendMutation(encryptUserInfo, variables)
   return async dispatch => {
     dispatch({
       type: ENCRYPTUSERINFO,
