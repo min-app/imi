@@ -6,7 +6,7 @@ export const mutation = async (query, variables, refetchQueries) => {
   return send(query, variables, refetchQueries)
 }
 
-export async function sendQuery(query, variables, ignoreCache) {
+export async function sendQuery(query, variables, ignoreCache = true) {
   const params = { query, variables }
   if (ignoreCache) {
       params.fetchPolicy = "network-only"
