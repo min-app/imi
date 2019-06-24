@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const addPlanQuery = gql`
+export const addPlanMutation = gql`
   mutation AddPlan(
     $title: String!
     $detail: String!

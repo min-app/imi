@@ -1,3 +1,5 @@
+export const PLANINFO = 'PLANINFO'
 export const PLANS = 'PLANS'
 export const ADDPLAN = 'ADDPLAN'
 export const UPDATEPLAN = 'UPDATEPLAN'
+export const ADDPLANLOG = 'ADDPLANLOG'

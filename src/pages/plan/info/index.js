@@ -1,6 +1,8 @@
 import Taro from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
 import { AtTimeline, AtModal, AtModalContent, AtModalAction, AtTextarea } from 'taro-ui'
+import gql from 'graphql-tag'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -9,25 +11,73 @@ import './index.scss'
 
 import BaseComponent from '@components/common/base'
 
-class PlanInfo extends BaseComponent {
+import { getPlan, addPlanLog } from '@actions/plan'
 
+const query = gql`
+  query Plan($id: PlanId!) {
+    plan(
+      id: $id
+    ) {
+      id
+      title
+      detail
+      status
+      startTime
+      endTime
+      planLogs {
+        edges {
+          node {
+            id
+            content
+            createdAt
+          }
+        }
+      }
+    }
+  }
+`
+@connect(
+  ({ plan }) => (plan),
+  (dispatch) => ({
+    getPlan(id) {
+      dispatch(getPlan(query, { id }))
+    },
+    addPlanLogFn(planId, content) {
+      dispatch(addPlanLog({ planId, content }))
+    },
+  })
+)
+class PlanInfo extends BaseComponent {
+  
   state = {
     isOpened: false,
-    logContent: ''
+    logContent: '',
+    addedItems: []
   }
-  items = [
-    { title: '刷牙洗脸', content: ['2019-04-25'], icon: 'clock' }, 
-    { title: '吃早餐', content: ['2019-04-24'], icon: 'clock' }, 
-    { title: '上班', content: ['2019-04-23'], icon: 'clock' }, 
-    { title: '睡觉', content: ['2019-04-22'], icon: 'clock' }
-  ]
+  id = ''
 
-  initItems (item = null) {
-    const items = this.items
-    if (item) {
-      items.push(item)
+  componentWillMount () {
+    const id = _.get(this.$router, 'params.id')
+    this.id = id
+    this.props.getPlan(id)
+  }
+  
+  componentWillReceiveProps (nextProps) {
+    const log = _.get(nextProps, 'addPlanLog.addedPlanLogEdge.node')
+    const addedItems = this.state.addedItems
+    this.setState({
+      addedItems: [...addedItems, this.planLog2Item(log)]
+    })
+
+    return nextProps
+  }
+
+  planLog2Item (planLog) {
+    return {
+      title: planLog.content,
+      content: [moment(planLog.createdAt).format('YYYY-MM-DD HH:mm')],
+      icon: 'clock'
     }
-    return this.items = items
   }
 
   onClickStatus () {
@@ -42,7 +92,6 @@ class PlanInfo extends BaseComponent {
 
   onLogging (e) {
     const logContent = _.get(e, 'detail.value', '')
-    console.log('logContent', logContent)
     this.setState({
       logContent
     })
@@ -56,11 +105,8 @@ class PlanInfo extends BaseComponent {
 
   onConfirm () {
     const { logContent } = this.state
-    this.initItems({
-      title: logContent,
-      content: [moment().format('YYYY-MM-DD HH:mm:ss')],
-      icon: 'clock'
-    })
+    this.props.addPlanLogFn(this.id, logContent)
+
     this.setState({
       logContent: '',
       isOpened: false
@@ -68,19 +114,20 @@ class PlanInfo extends BaseComponent {
   }
 
   render () {
-    const items = this.items
+    const plan = _.get(this.props, 'plan', {})
+    const { id, title, detail, status, planLogs = {} } = plan
+
+    const planLogsItems = _.get(plan, 'planLogs.edges', []).map(log => this.planLog2Item(log.node))
+    const addedItems = this.state.addedItems
+    const items = [...planLogsItems, ...addedItems]
     const { isOpened, logContent } = this.state
     return (
       <View>
-        {/* <View className='main'>
-          <View className='title'>3个月读完基础</View>
-          <View className='desc'>3个月读完基础3个月读完基础3个月读完基础</View>
-        </View> */}
         <View className='list-box'>
           <View className='list-box-item'>
             <View className='list-box-item-main'>
-              <View className='list-box-item-main-title'>3个月读完基础</View>
-              <View className='list-box-item-main-desc'>3个月读完基础3个月读完基础3个月读完基础</View>
+              <View className='list-box-item-main-title'>{title}</View>
+              <View className='list-box-item-main-desc'>{detail}</View>
             </View>
             <View className='list-box-item-minor error' onClick={this.onClickStatus}>暂停</View>
           </View>
