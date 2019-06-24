@@ -1,3 +1,4 @@
+import Taro from '@tarojs/taro'
 import { sendMutation as send } from 'taro-apollo'
 
 import client from '../client'
@@ -11,18 +12,26 @@ export async function sendQuery(query, variables, ignoreCache = true) {
   if (ignoreCache) {
       params.fetchPolicy = "network-only"
   }
-  const { data, errors } = await client.query(params)
-  if (errors) {
-      throw errors
+  try {
+    const { data } = await client.query(params)
+    return data
+  } catch (error) {
+    Taro.atMessage({
+      message: errors.message || '系统异常',
+      type: 'error',
+    })
   }
-  return data
 }
 
 export async function sendMutation(mutation, variables, refetchQueries) {
   const params = { mutation, variables, refetchQueries }
-  const { data, errors } = await client.mutate(params)
-  if (errors) {
-      throw errors
+  try {
+    const { data } = await client.mutate(params)
+    return data
+  } catch (errors) {
+    Taro.atMessage({
+      message: errors.message || '系统异常',
+      type: 'error',
+    })
   }
-  return data
 }

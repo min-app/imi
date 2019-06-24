@@ -74,7 +74,6 @@ class AddPlanComponent extends BaseComponent {
 
   render () {
     const { title, detail, startTime, endTime } = this.state
-    // console.log('this.state', this.state)
     return (
       <View>
         <AtForm>

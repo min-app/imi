@@ -84,7 +84,6 @@ class UserComponent extends BaseComponent {
   handleClick (e, click) {
     const action = _.get(click, 'currentTarget.dataset.action', '')
     
-    console.log('action', action)
     switch (action) {
       case 'addPlan':
         Taro.navigateTo({

@@ -1,5 +1,6 @@
 import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
+import { AtMessage } from 'taro-ui'
 import { Provider } from '@tarojs/redux'
 
 require('./client')
@@ -22,8 +23,8 @@ class App extends Component {
   config = {
     pages: [
       // 'pages/index/index',
-      'pages/plan/index',
       'pages/user/index',
+      'pages/plan/index',
       'pages/plan/add/index',
       'pages/plan/info/index',
       'pages/home/index',
@@ -54,6 +55,7 @@ class App extends Component {
   render () {
     return (
       <Provider store={store}>
+        <AtMessage />
         <Index />
       </Provider>
     )

@@ -32,7 +32,6 @@ const query = gql`
     fetchPolicy: 'network-only"',
     ignoreCache: true, // 设置 fetchPolicy = "network-only"， 为了省事。。 
     variables: (props, state) => {
-      console.log('props', props, state)
         return {
           first: props.first,
           after: props.after

@@ -32,7 +32,6 @@ export const addPlanLog = async (variables = {}) => {
 }
 
 export const addPlan = async (variables) => {
-  console.log('variables', variables)
   return async dispatch => {
     dispatch({
       type: ADDPLAN,
