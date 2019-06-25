@@ -9,7 +9,9 @@ class Body extends Component {
     current: 0
   }
   tabs = [
-    'home', 'plan', 'user'
+    // 'home',
+    'plan',
+    'user',
   ]
 
   onChangeTab (index, reload = false) {

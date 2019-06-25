@@ -30,7 +30,7 @@ export async function sendMutation(mutation, variables, refetchQueries) {
     return data
   } catch (errors) {
     Taro.atMessage({
-      message: errors.message || '系统异常',
+      message: errors.message ? errors.message.replace('GraphQL error: ', '') : '系统异常',
       type: 'error',
     })
   }

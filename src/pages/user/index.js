@@ -97,7 +97,7 @@ class UserComponent extends BaseComponent {
     const userInfo = _.get(this.props, 'user.wxUser', _.get(this.props, 'encryptUserInfo.wxUser', {}))
     return (
       <Body
-        current={2}
+        current={1}
       >
         <View className='top'>
           <Image

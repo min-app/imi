@@ -64,7 +64,7 @@ class PlanComponent extends BaseComponent {
     const plans = _.get(this.props, 'plans.edges', []).map(({ node }) => node)
     return (
       <Body
-        current={1}
+        current={0}
       >
         <View className='list-box'>
           {plans.map(item => {
