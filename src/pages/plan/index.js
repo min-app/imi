@@ -20,11 +20,14 @@ const statusObj = {
 }
 
 const query = gql`
-  query Plans {
+  query Plans($userId: UserId!) {
     plans(
       sort: [
         { field: "id", order: DESC }
       ]
+      condition: {
+        userId: $userId
+      }
     ) {
       edges {
         node {
@@ -42,15 +45,15 @@ const query = gql`
 @connect(
   ({ plan }) => (plan),
   (dispatch) => ({
-    plans() {
-      dispatch(plans(query))
+    plans(userId) {
+      dispatch(plans(query, { userId }))
     },
   })
 )
 class PlanComponent extends BaseComponent {
 
   componentWillMount () {
-    this.props.plans()
+    this.props.plans(Taro.getStorageSync('userId'))
   }
 
   onClick (e) {
