@@ -18,13 +18,14 @@ export default (state = INITIAL_STATE, action) => {
     return action
       break
     case PLANS:
+      const edges = _.uniqBy([
+        ..._.get(state, 'plans.edges', []),
+        ..._.get(action, 'plans.edges', []),
+      ], 'node')
       return {
         plans: {
           ...action.plans,
-          edges: [
-            ..._.get(state, 'plans.edges', []),
-            ..._.get(action, 'plans.edges', []),
-          ]
+          edges,
         }
       }
       break

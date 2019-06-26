@@ -19,6 +19,9 @@ class BaseComponent extends Taro.Component {
   }
 
   onPullDownRefresh () {
+    this.after = '0'
+    this.loadMore()
+    setTimeout(Taro.stopPullDownRefresh, 1500)
   }
   
   onReachBottom () {
