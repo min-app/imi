@@ -20,8 +20,10 @@ const statusObj = {
 }
 
 const query = gql`
-  query Plans($userId: UserId!) {
+  query Plans($userId: UserId!, $first: Float, $after: String) {
     plans(
+      first: $first
+      after: $after
       sort: [
         { field: "id", order: DESC }
       ]
@@ -29,6 +31,9 @@ const query = gql`
         userId: $userId
       }
     ) {
+      pageInfo {
+        hasNextPage
+      }
       edges {
         node {
           id
@@ -45,21 +50,35 @@ const query = gql`
 @connect(
   ({ plan }) => (plan),
   (dispatch) => ({
-    plans(userId) {
-      dispatch(plans(query, { userId }))
+    lists(variables) {
+      dispatch(plans(query, variables))
     },
   })
 )
 class PlanComponent extends BaseComponent {
 
+  userId = Taro.getStorageSync('userId')
+
   componentWillMount () {
-    this.props.plans(Taro.getStorageSync('userId'))
+    this.loadMore()
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.hasNextPage = _.get(nextProps, 'plans.pageInfo.hasNextPage', true)
   }
 
   onClick (e) {
     const id = _.get(e, 'currentTarget.dataset.id')
     Taro.navigateTo({
       url: `/pages/plan/info/index?id=${id}`
+    })
+  }
+
+  loadMore () {
+    this.props.lists({
+      userId: this.userId,
+      first: this.first,
+      after: this.after,
     })
   }
 

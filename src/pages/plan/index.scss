@@ -3,6 +3,7 @@
 .list-box {
     padding: $marginL;
     padding-top: 0;
+    padding-bottom: $marginL * 5;
     .list-box-item {
         padding: $margin $marginS;
         display: flex;

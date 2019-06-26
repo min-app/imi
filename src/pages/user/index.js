@@ -90,6 +90,12 @@ class UserComponent extends BaseComponent {
           url: '/pages/plan/add/index'
         })
         break
+      default:
+        Taro.showToast({
+          title: '小哥哥努力开发中...',
+          icon: 'none'
+        })
+        break
     }
   }
 

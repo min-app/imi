@@ -69,7 +69,26 @@ class AddPlanComponent extends BaseComponent {
   }
 
   submit () {
-    this.props.addPlan(this.state)
+    const { title, detail, startTime, endTime } = this.state
+    let message = ''
+    if (!title) {
+      message = '请输入计划标题'
+    } else if (!startTime) {
+      message = '请设置计划开始时间'
+    } else if (!endTime) {
+      message = '请设置计划结束时间'
+    } else if (!detail) {
+      message = '请输入计划详情'
+    }
+
+    if (message) {
+      Taro.atMessage({
+        message,
+        type: 'error',
+      })
+    } else {
+      this.props.addPlan(this.state)
+    }
   }
 
   render () {

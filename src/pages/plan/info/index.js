@@ -123,13 +123,13 @@ class PlanInfo extends BaseComponent {
     const { isOpened, logContent } = this.state
     return (
       <View>
-        <View className='list-box'>
+        <View className='list-box' style={{ paddingBottom: 0 }}>
           <View className='list-box-item'>
             <View className='list-box-item-main'>
               <View className='list-box-item-main-title'>{title}</View>
               <View className='list-box-item-main-desc'>{detail}</View>
             </View>
-            <View className='list-box-item-minor error' onClick={this.onClickStatus}>暂停</View>
+            {status === 'underway' && <View className='list-box-item-minor error' onClick={this.onClickStatus}>暂停</View>}
           </View>
         </View>
         <View className='minor'>
@@ -155,9 +155,9 @@ class PlanInfo extends BaseComponent {
             <Button onClick={this.onConfirm}>确定</Button>
           </AtModalAction>
         </AtModal>
-        <View className='box-fixed'>
+        {status === 'underway' && <View className='box-fixed'>
           <View className='box-fixed-item primary' onClick={this.onClickLog}>新增日志</View>
-        </View>
+        </View>}
       </View>
     )
   }
