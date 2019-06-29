@@ -16,7 +16,7 @@ class Body extends Component {
 
   onChangeTab (index, reload = false) {
     if (reload === true) {
-      Taro.startPullDownRefresh()
+      if (index !== 1) Taro.startPullDownRefresh()
     } else {
       Taro.redirectTo({
         url: `/pages/${this.tabs[index]}/index`
